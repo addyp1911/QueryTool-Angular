@@ -1,0 +1,60 @@
+<div class="side-nav">
+  <div class="side-nav-content">
+    <div
+      class="nav-link"
+      style="margin-top: 1rem"
+      routerLinkActive="active"
+      [routerLink]="['/home']"
+    >
+      <div class="image"><img src="../../assets/Images/home.svg" /></div>
+      <div 
+      class="nav-content">Home</div>
+    </div>
+    <div
+      class="nav-link"
+      routerLinkActive="active"
+      [routerLink]="['/my-tickets']"
+    >
+      <div class="image">
+        <img src="../../assets/Images/notes.svg" />
+      </div>
+      <div joyrideStep="firstStep" 
+      text="Click here to view all the tickets raised by you!"
+      class="nav-content">Tickets Raised By Me</div>
+    </div>
+    <div
+      class="nav-link"
+      routerLinkActive="active"
+      [routerLink]="['/assigned-tickets']"
+      *ngIf="!getUserIsRequester()"
+    >
+      <div class="image">
+        <img src="../../assets/Images/notes.svg" />
+      </div>
+      <div *ngIf="!getUserIsRequester()" joyrideStep="secondStep" 
+      text="Click here to view all the tickets assigned to you!" class="nav-content">Tickets Assigned</div>
+    </div>
+    <div
+      class="nav-link add-modify-repo"
+      routerLinkActive="active"
+      [routerLink]="['/add-repo']"
+      *ngIf="!getUserIsRequester()"
+    >
+      <div class="image">
+        <img src="../../assets/Images/notes.svg" />
+      </div>
+      <div *ngIf="!getUserIsRequester()" joyrideStep="thirdStep" 
+      text="Click here to add or modify FAQs to the repository!" class="nav-content">Add/Modify FAQs</div>
+      <div class="onHover">
+        <div class="add">Add</div>
+        <div class="modify" [routerLink]="['/modify-repo']">Modify</div>
+      </div>
+    </div>
+    <div class="logout nav-link">
+      <div class="image">
+        <img src="../../assets/Images/logout.svg" />
+      </div>
+      <div class="nav-content" (click)="logoutUser()">Log Out</div>
+    </div>
+  </div>
+</div>

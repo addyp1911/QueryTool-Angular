@@ -1,0 +1,328 @@
+<div class="c-ticket-section">
+  <div class="c-ticket-container">
+    <div class="top-nav-section">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <div class="create-ticket-form">
+        <div class="form-heading">
+          <p class="f-heading">Ticket Details</p>
+          <div class="form-section formGroup">
+            <form [formGroup]="updateStatusForm" (ngSubmit)="updateStatus()">
+              <div class="first-form">
+                <div class="f-field">
+                  <label for="ticket">Ticket</label><br />
+                  <input
+                    type="text"
+                    id="ticket"
+                    name="ticket"
+                    value="{{ ticketDetails.ticketNumber }}"
+                    readonly="readonly"
+                  /><br />
+                </div>
+                <div class="first-field">
+                  <label for="createdDate">Created Date</label><br />
+                  <input
+                    type="text"
+                    id="createdDate"
+                    name="createdDate"
+                    value="{{ newDate }}"
+                    readonly
+                  /><br />
+                </div>
+                <div class="second-field">
+                  <label for="targetDate">Target Date</label><br />
+                  <input
+                    type="text"
+                    id="targetDate"
+                    name="targetDate"
+                    value="{{ newtargetDate }}"
+                    readonly
+                  /><br />
+                </div>
+                <div class="third-field">
+                  <label for="status">Status</label><br />
+                  <input
+                    *ngIf="userType == 'COORDINATOR' || userType == 'REQUESTER'"
+                    type="text"
+                    id="status"
+                    name="trackingStatus"
+                    value="{{ ticketDetails.trackingStatus }}"
+                    readonly
+                  />
+                  <select
+                    *ngIf="userType == 'RESOLVER'"
+                    class="status enabled"
+                    name="status"
+                    formControlName="ticketStatus"
+                  >
+                    <option value="All">Select Status</option>
+                    <option
+                      *ngFor="
+                        let status of [
+                          'ASSIGNED',
+                          'PENDING_USER_ACTION',
+                          'PENDING_OTHERS_ACTION',
+                          'RESOLVED',
+                          'REOPENED'
+                        ]
+                      "
+                      [value]="status"
+                      [selected]="status === ticketDetails.trackingStatus"
+                    >
+                      <div *ngIf="status == 'PENDING_USER_ACTION'">
+                        PENDING USER ACTION
+                      </div>
+                      <div *ngIf="status == 'PENDING_OTHERS_ACTION'">
+                        PENDING OTHERS ACTION
+                      </div>
+                      <div
+                        *ngIf="
+                          status != 'PENDING_USER_ACTION' &&
+                          status != 'PENDING_OTHERS_ACTION'
+                        "
+                      >
+                        {{ status }}
+                      </div>
+                    </option>
+                  </select>
+                </div>
+                <div *ngIf="userType == 'COORDINATOR'" class="third-field">
+                  <label for="status">Assignee</label><br />
+                  <select
+                    class="enabled"
+                    name=""
+                    id=""
+                    (change)="
+                      updateAssignee($event, ticketDetails.ticketNumber)
+                    "
+                  >
+                    <option selected disabled>Not Assigned</option>
+                    <option
+                      *ngFor="let item of allUsers"
+                      [value]="item.email"
+                      [selected]="item.email === ticketDetails.assignedTo"
+                    >
+                      {{ item.email }}
+                    </option>
+                  </select>
+                  <br />
+                </div>
+              </div>
+              <!-- <div class="first-form">
+                          <div class="first-field">
+                              <label for="createdDate">Created Date</label><br>
+                              <input type="text" id="createdDate" name="createdDate" readonly="readonly" value="{{ticketDetails.createdAt| date: 'dd-MM-YYYY'}}"><br>
+                          </div>
+                          <div class="second-field" style="margin-left:2rem;">
+                              <label for="targetDate">Target Date</label><br>
+                              <input type="text" id="targetDate" name="targetDate" readonly="readonly" value="{{newtargetDate}}"><br>
+                          </div>
+                          <div class="third-field">
+                              <label for="status">Status</label><br>
+                              <input type="text" id="status" name="trackingStatus" readonly="readonly" value="CREATED" ><br>
+                          </div>
+                      </div> -->
+              <div class="second-form">
+                <div c *ngIf="userType == 'REQUESTER'" class="s-first-field">
+                  <label for="Department">Department</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="department"
+                    id="Department"
+                    readonly
+                  >
+                    <br />
+                    >
+                    <option [selected]="ticketDetails.department">
+                      {{ ticketDetails.department }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div
+                  *ngIf="userType == 'COORDINATOR' || userType == 'RESOLVER'"
+                  class="s-first-field"
+                >
+                  <label for="Department">Department</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="department"
+                    id="Department"
+                    (change)="
+                      reRouteToDifferentDept($event, ticketDetails.ticketNumber)
+                    "
+                  >
+                    <br />
+                    >
+                    <option
+                      *ngFor="let item of allDepartments"
+                      [value]="item.name"
+                      [selected]="item.name === ticketDetails.department"
+                    >
+                      {{ item.name }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div class="s-second-field">
+                  <label for="Category">Category</label><br />
+                  <select
+                    class="disabled"
+                    name="category"
+                    id="Category"
+                    value="{{ selectedCategory }}"
+                    readonly="readonly"
+                  >
+                    <option [selected]="ticketDetails.category">
+                      {{ ticketDetails.category }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div class="s-third-field">
+                  <label for="Sub-Category ">Sub-Category</label><br />
+                  <select
+                    class="disabled"
+                    name="subCategory"
+                    id="Sub-Category"
+                    value="{{ selectedSubCategory }}"
+                    readonly="readonly"
+                  >
+                    <option [selected]="ticketDetails.subCategory">
+                      {{ ticketDetails.subCategory }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div class="s-fourth-field">
+                  <label for="Priority ">Priority</label><br />
+                  <select
+                    class="disabled"
+                    name="priority"
+                    id="Priority"
+                    readonly="readonly"
+                  >
+                    <option [selected]="ticketDetails.priority">
+                      {{ ticketDetails.priority }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+              </div>
+              <div class="third-form">
+                <label for="title">Title</label><br />
+                <input
+                  type="title"
+                  id="title"
+                  name="query"
+                  value="{{ ticketDetails.query }}"
+                  readonly="readonly"
+                /><br />
+              </div>
+              <div class="comment-form">
+                <label for="Description">Description</label><br />
+                <textarea
+                  type="description"
+                  id="description"
+                  name="description"
+                  value="{{ ticketDetails.description }}"
+                  readonly="readonly"
+                ></textarea
+                ><br />
+              </div>
+              <div
+                class="fourth-form"
+                *ngIf="
+                  userType == 'RESOLVER' ||
+                  (userType == 'REQUESTER' &&
+                    (ticketDetails.trackingStatus == 'PENDING_USER_ACTION' ||
+                      ticketDetails.trackingStatus == 'RESOLVED'))
+                "
+              >
+                <label for="Description">Comment</label><br />
+                <textarea
+                  formControlName="comment"
+                  type="comment"
+                  id="comment"
+                  name="comment"
+                ></textarea>
+                <small
+                  style="color: red"
+                  *ngIf="updateStatusForm.get('comment')?.errors?.['required']  && (updateStatusForm.dirty || updateStatusForm.touched)"
+                >
+                  Comment is required.
+                </small>
+                <br />
+              </div>
+              <div
+                class="btn-forms"
+                *ngIf="
+                  userType == 'RESOLVER' ||
+                  (userType == 'REQUESTER' &&
+                    (ticketDetails.trackingStatus == 'PENDING_USER_ACTION' ||
+                      ticketDetails.trackingStatus == 'RESOLVED'))
+                "
+              >
+                <div class="file-upload">
+                  <button class="btn-upload" type="submit">
+                    <img src="../../assets/Images/uploadsvg.svg" /><span
+                      style="margin-left: 0.5rem"
+                      >Upload File</span
+                    >
+                  </button>
+
+                  <input
+                    #fileInput
+                    type="file"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                </div>
+                <div class="btns">
+                  <button type="button" class="cancel">Cancel</button>
+                  <app-loader
+                    style="margin: 0rem 3rem 0rem 4rem"
+                    *ngIf="loader"
+                    [size]="40"
+                  ></app-loader>
+                  <button
+                    *ngIf="!loader"
+                    [disabled]="!updateStatusForm.valid"
+                    type="submit"
+                    class="submit"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <p></p>
+              <div>
+                <label for="Description">History </label>
+                <div
+                  class="enabled"
+                  type="description"
+                  id="status-history"
+                  name="status-history"
+                  [innerHTML]="displayString"
+                ></div>
+                <br />
+
+                <!-- <textarea type="description" id="status-history" name="status-history" value="Date: {{ticketDetails.createdAt| date: 'dd-MM-YYYY hh:mm:aa'}} Ticket {{ticketDetails.ticketNo}} has been created successfully." readonly="readonly"></textarea><br> -->
+              </div>
+              <!-- <div class="btn-forms">
+                          <button class="btn-upload" type="button" (click)="fileInput.click()">Upload File</button>
+                          <input #fileInput type="file" accept="image/*" (change)="onFileChanged($event)" style="display:none;" />
+                          <button type="button" (click)="clear(form)" class="cancel">Cancel</button>
+                          <button class="submit" [disabled]="isDisabled" >Submit</button>
+                      </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

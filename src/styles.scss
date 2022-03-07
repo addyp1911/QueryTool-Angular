@@ -1,0 +1,41 @@
+@font-face {
+  font-family: primary-book;
+  src: url("../src/assets/fonts/AvenirLTStd-Book.otf");
+}
+
+@font-face {
+  font-family: primary-black;
+  src: url("../src/assets/fonts/AvenirLTStd-Black.otf");
+}
+
+@font-face {
+  font-family: primary-roman;
+  src: url("../src/assets/fonts/AvenirLTStd-Roman.otf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 100vh;
+  font-family: primary-book;
+}
+::-webkit-input-placeholder {
+  font-family: primary-book;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+input,
+textarea,
+select,
+option {
+  font-family: primary-book !important;
+  background-color: #faf8f7;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}

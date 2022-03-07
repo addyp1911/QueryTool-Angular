@@ -1,0 +1,58 @@
+[{
+        "title": "DTE REIMBURSMENT",
+        "description": "Geting the dte reimbursment!!",
+        "department": "HR",
+        "category": "MCD",
+        "subCategory": "s1"
+    },
+    {
+        "title": "INsurance polciy apply",
+        "description": "How to apply for insurance",
+        "department": "HR",
+        "category": "MCD",
+        "subCategory": "s2"
+    },
+    {
+        "title": "Smart phones Reimbusment ",
+        "description": "Smartphone reimbursment pollciy doc ",
+        "department": "IT",
+        "category": "c3",
+        "subCategory": "s3"
+    },
+    {
+        "title": "Bills Upload",
+        "description": "How to upload bills on excelity",
+        "department": "HR",
+        "category": "c2",
+        "subCategory": "s1"
+    },
+    {
+        "title": "Hybrid Allowance",
+        "description": "Hybrdid Allowance - HOw can you apply on excelity",
+        "department": "Payroll",
+        "category": "c2",
+        "subCategory": "s2"
+    },
+    {
+        "title": "Expense allowance",
+        "description": "Company Reimbursment-How to get ...",
+        "department": "IT",
+        "category": "c3",
+        "subCategory": "s3"
+    },
+    {
+        "title": "Healthbeing Allowance",
+        "description": "How to apply healthbeing allowance",
+        "department": "HR",
+        "category": "c1",
+        "subCategory": "s1"
+
+    },
+    {
+        "title": "Vantage gifts",
+        "description": "How to apply for vintage gifts!!",
+        "department": "Payroll",
+        "category": "c2",
+        "subCategory": "s2"
+    }
+]

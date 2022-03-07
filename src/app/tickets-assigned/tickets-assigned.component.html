@@ -1,0 +1,160 @@
+<div class="c-ticket-section">
+  <div class="c-ticket-container">
+    <div class="top-nav-section">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <section class="my-tickets">
+        <div class="heading">Tickets Assigned</div>
+        <div class="searh-functionality">
+          <div class="search-section">
+            <input
+              class="search-tab"
+              type="text"
+              placeholder="Search by query ID or description"
+              [(ngModel)]="searchTerm"
+              (input)="search(searchTerm!)"
+            />
+            <div class="s-img">
+              <img class="s-icon" src="../../assets/Images/search.png" />
+            </div>
+          </div>
+          <div class="export-button">
+            <button (click)="downloadFile()">Export</button>
+          </div>
+        </div>
+        <div class="dropdowns">
+          <div class="assignee-dropdown">
+            <label for="">Assignee</label>
+            <select
+              class="assignee"
+              name="assignee"
+              [(ngModel)]="selectedAssignee"
+              (change)="selected()"
+            >
+              <option value="All">Select Assignee</option>
+              <option
+                style="text-transform: lowercase"
+                *ngFor="let assignee of allAssignees"
+                [value]="assignee.email"
+              >
+                {{ assignee.email }}
+              </option>
+            </select>
+          </div>
+          <div class="priority-dropdown">
+            <label for="">Priority</label>
+            <select
+              class="assignee"
+              name="priority"
+              [(ngModel)]="selectedPriority"
+              (change)="selected()"
+            >
+              <option value="All">Select Priority</option>
+              <option
+                *ngFor="let name of ['P1', 'P2', 'P3', 'P4', 'P5']"
+                [value]="name"
+              >
+                {{ name }}
+              </option>
+            </select>
+          </div>
+          <div class="eta-dropdown" style="margin-right: 2rem">
+            <label for="">ETA</label>
+            <input
+              class="eta"
+              type="date"
+              [(ngModel)]="selectedDate"
+              (change)="selected()"
+            />
+          </div>
+          <div class="status-dropdown">
+            <label for="">Status</label>
+            <select
+              class="status"
+              name="status"
+              [(ngModel)]="selectedStatus"
+              (change)="selected()"
+            >
+              <option value="All">Select Status</option>
+              <option
+                *ngFor="
+                  let status of [
+                    'CREATED',
+                    'ASSIGNED',
+                    'PENDING_USER_ACTION',
+                    'PENDING_OTHERS_ACTION',
+                    'RESOLVED',
+                    'CLOSED',
+                    'REOPENED'
+                  ]
+                "
+                [value]="status"
+              >
+                <div *ngIf="status == 'PENDING_USER_ACTION'">
+                  PENDING USER ACTION
+                </div>
+                <div *ngIf="status == 'PENDING_OTHERS_ACTION'">
+                  PENDING OTHERS ACTION
+                </div>
+                <div
+                  *ngIf="
+                    status != 'PENDING_USER_ACTION' &&
+                    status != 'PENDING_OTHERS_ACTION'
+                  "
+                >
+                  {{ status }}
+                </div>
+              </option>
+            </select>
+          </div>
+          <div class="date-range-dropdown">
+            <label for="">Date Range</label>
+            <div>
+              <mat-date-range-input class="date-picker" [rangePicker]="picker">
+                <input
+                  matStartDate
+                  [(ngModel)]="selectedStartDate"
+                  placeholder="Select Date"
+                />
+                <input
+                  matEndDate
+                  [(ngModel)]="selectedEndDate"
+                  placeholder=""
+                  (dateChange)="dateSelected()"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                style="margin-left: -39px"
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </div>
+          </div>
+          <!-- <div class="date-range-dropdown">
+            <label for="">Date Range</label>
+            <input type="date" />
+          </div> -->
+        </div>
+        <div class="ticket-details">
+          <div class="details-heading">
+            <p class="ticket-id">Query Id</p>
+            <p class="ticket-description">Description</p>
+            <p class="ticket-status">Status</p>
+          </div>
+          <div *ngFor="let item of myAssignedTickets">
+            <app-ticket-card
+              class="ticket-detail-card"
+              [ticket]="item"
+              [routerLink]="['/ticket-details/', item.ticketNumber]"
+            ></app-ticket-card>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="c-ticket-section">
+  <div class="c-ticket-container">
+    <div class="top-nav-section">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <section class="my-tickets">
+        <div class="heading">Incidents Raised By Me</div>
+        <div class="searh-functionality">
+          <div class="search-section">
+            <input
+              class="search-tab"
+              type="text"
+              placeholder="Search by query ID or description"
+              [(ngModel)]="searchTerm"
+              (input)="search(searchTerm!)"
+            />
+            <div class="s-img">
+              <img class="s-icon" src="../../assets/Images/search.png" />
+            </div>
+          </div>
+          <div class="status-dropdown">
+            <label for="">Status</label>
+            <select
+              class="status"
+              name="status"
+              [(ngModel)]="selectedStatus"
+              (change)="selected()"
+            >
+              <option value="All">Select Status</option>
+              <option
+                *ngFor="
+                  let status of [
+                    'CREATED',
+                    'ASSIGNED',
+                    'PENDING_USER_ACTION',
+                    'PENDING_OTHERS_ACTION',
+                    'RESOLVED',
+                    'CLOSED',
+                    'REOPENED'
+                  ]
+                "
+                [value]="status"
+              >
+                <div *ngIf="status == 'PENDING_USER_ACTION'">
+                  PENDING USER ACTION
+                </div>
+                <div *ngIf="status == 'PENDING_OTHERS_ACTION'">
+                  PENDING OTHERS ACTION
+                </div>
+                <div
+                  *ngIf="
+                    status != 'PENDING_USER_ACTION' &&
+                    status != 'PENDING_OTHERS_ACTION'
+                  "
+                >
+                  {{ status }}
+                </div>
+              </option>
+            </select>
+          </div>
+          <div class="date-range-dropdown">
+            <label for="">Date Range</label>
+            <div style="display:flex">
+            <mat-date-range-input class="date-picker" [rangePicker]="picker">
+              <input matStartDate  [(ngModel)]="selectedStartDate" placeholder="Select Date">
+              <input matEndDate  [(ngModel)]="selectedEndDate" placeholder="" (dateChange)="dateSelected()" >
+            </mat-date-range-input>
+            <mat-datepicker-toggle style="margin-left: -39px" matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            </div>
+          
+          </div>
+          <!-- <mat-form-field  class="date-range-dropdown" > -->
+            <!-- <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Start date">
+              <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field> -->
+        </div>
+        <div class="ticket-details">
+          <div class="details-heading">
+            <p class="ticket-id">Query Id</p>
+            <p class="ticket-description">Description</p>
+            <p class="ticket-status">Status</p>
+          </div>
+          <div *ngFor="let item of myTickets">
+            <app-ticket-card
+              class="ticket-detail-card"
+              [ticket]="item"
+              routerLinkActive="active"
+              [routerLink]="['/ticket-details/', item.ticketNumber]"
+            ></app-ticket-card>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

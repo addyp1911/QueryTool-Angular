@@ -1,0 +1,247 @@
+<div class="home-section">
+  <div class="home-container">
+    <app-top-nav></app-top-nav>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <div class="main-content-section" style="background-color: #faf8f7">
+        <div class="general-query-section">
+          <div class="query-search-section">
+            <div class="query-content">
+              <div style="display: flex">
+                <p id="username">Welcome, {{ userdetails?.username }} !</p>
+                <mat-icon
+                  matTooltip="Start Tour Guide"
+                  style="
+                    padding-top: 1.75rem;
+                    margin-left: 5px;
+                    transform: scale(0.9);
+                    color: #f47920;
+                  "
+                  (click)="onClick()"
+                  >play_circle_filled</mat-icon
+                >
+              </div>
+            </div>
+            <div class="query-search-form">
+              <div class="search-section">
+                <div class="s-input">
+                  <input
+                    class="search-tab"
+                    type="text"
+                    placeholder="Search"
+                    [(ngModel)]="searchTerm"
+                  />
+                </div>
+                <div class="s-img">
+                  <img
+                    *ngIf="!getUserIsRequester()"
+                    joyrideStep="fourthStep"
+                    text="Enter your keyword and click here to search your query by keyword or use filters of department,category and subcategory!"
+                    type="button"
+                    (click)="search(searchTerm)"
+                    class="s-icon"
+                    src="../../assets/Images/search.png"
+                  />
+                  <img
+                    *ngIf="getUserIsRequester()"
+                    joyrideStep="secondStep"
+                    text="Enter your keyword and click here to search your query by keyword or use filters of department,category and subcategory!"
+                    type="button"
+                    (click)="search(searchTerm)"
+                    class="s-icon"
+                    src="../../assets/Images/search.png"
+                  />
+                </div>
+              </div>
+              <div class="input-form-field">
+                <div class="d-section">
+                  <label for="Department">Department</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="departments "
+                    id="departments "
+                    [(ngModel)]="selectedDepartment"
+                    (change)="selected()"
+                  >
+                    <option value="All">Select Department</option>
+                    <option
+                      *ngFor="let dept of allDepartments"
+                      [value]="dept.name"
+                    >
+                      {{ dept.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="c-section">
+                  <label for="Category">Category</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="category "
+                    id="category "
+                    [(ngModel)]="selectedCategory"
+                    (change)="selectCategory()"
+                  >
+                    <option value="All">Select Category</option>
+                    <option
+                      *ngFor="let category of allCategories"
+                      [value]="category"
+                    >
+                      {{ category }}
+                    </option>
+                  </select>
+                </div>
+                <div class="s-section">
+                  <label for=" SubCategory ">Sub-Category</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="subcategory "
+                    id="subcategory "
+                    [(ngModel)]="selectedSubCategory"
+                    (change)="selectSubCategory()"
+                  >
+                    <option value="All">Select Sub-Category</option>
+                    <option
+                      *ngFor="let subcategory of allSubCategories"
+                      [value]="subcategory"
+                    >
+                      {{ subcategory }}
+                    </option>
+                  </select>
+                </div>
+                <!-- <div class="date-section">
+                  <label for="Date">Date</label><br />
+                  <input class="date" type="date" />
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <!--Finish of the query search section-->
+          <div class="query-list-section">
+            <div class="query-list-h">
+              <p class="q-heading">FAQs</p>
+            </div>
+            <div class="qury-cards">
+              <div
+                class="query-cards-item"
+                *ngFor="
+                  let repo of faqs! | slice: 0:10;
+                  searchFilter: searchTerm!;
+                  index as i
+                "
+              >
+                <p
+                  class="c-heading"
+                  routerLinkActive="active"
+                  [routerLink]="['/faq-details/', repo.id]"
+                >
+                  {{ repo.query }}
+                </p>
+                <p
+                  class="c-para"
+                  routerLinkActive="active"
+                  [routerLink]="['/faq-details/', repo.id]"
+                >
+                  {{ repo.solution }}
+                </p>
+                <div class="stage" (click)="Like(repo)">
+                  <img
+                    class="like-image"
+                    *ngIf="repo?.isLiked == false"
+                    src="../../assets/Images/like.svg "
+                  />
+                  <img
+                    class="like-image"
+                    *ngIf="repo?.isLiked == true"
+                    src="../../assets/Images/liked.svg "
+                  />
+                  <span class="like-content">
+                    {{ repo.likes }} people found it helpful</span
+                  >
+                </div>
+              </div>
+              <div *ngIf="faqs?.length == 0">
+                <div class="no-data-message">
+                  <img
+                    src="../../assets/Images/search-black.png"
+                    height="100px"
+                    alt=""
+                  />
+                  <div class="heading">No Result Found</div>
+                  <div class="message">
+                    No matching queries found. Need more help ?
+                  </div>
+                  <button
+                    class="n-btn"
+                    routerLinkActive="active"
+                    [routerLink]="['/create-ticket']"
+                  >
+                    Raise A Ticket
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="side-section">
+          <div class="trending-queries" style="margin-top: 1rem">
+            <div class="t-heading">Trending Queries</div>
+            <div class="cards-container">
+              <div
+                class="t-cards"
+                *ngFor="let tfaq of trendingfaqs"
+                routerLinkActive="active"
+                [routerLink]="['/faq-details/', tfaq.faq.id]"
+              >
+                <p class="tc-heading">{{ tfaq.faq.query }}</p>
+                <p class="tc-description">{{ tfaq.faq.solution }}</p>
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="trending-queries" style="margin-top: 1rem">
+            <div class="t-heading">Recently Added</div>
+            <div class="cards-container">
+              <div
+                class="t-cards"
+                *ngFor="let rfaq of recentfaqs"
+                routerLinkActive="active"
+                [routerLink]="['/faq-details/', rfaq.id]"
+              >
+                <p class="tc-heading">{{ rfaq.query }}</p>
+                <p class="tc-description">{{ rfaq.solution }}</p>
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="assistance" style="margin-top: 1rem">
+            <div class="a-section" style="text-align: center">
+              <p class="a-heading">Need Assistance?</p>
+              <button
+                *ngIf="!getUserIsRequester()"
+                joyrideStep="fifthStep"
+                text="Click here to raise a ticket if you can't resolve your query from our FAQ library!"
+                class="n-btn"
+                routerLinkActive="active"
+                [routerLink]="['/create-ticket']"
+              >
+                Raise A Ticket
+              </button>
+              <button
+                *ngIf="getUserIsRequester()"
+                joyrideStep="thirdStep"
+                text="Click here to raise a ticket if you can't resolve your query from our FAQ library!"
+                class="n-btn"
+                routerLinkActive="active"
+                [routerLink]="['/create-ticket']"
+              >
+                Raise A Ticket
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<section class="card-info">
+  <div class="ticket-id">{{ ticket.ticketNumber }}</div>
+  <div class="ticket-description">{{ ticket.description }}</div>
+  <div
+    class="ticket-status"
+    [ngClass]="
+      ticket.trackingStatus == 'PENDING' ? 'pending-status' : 'resolved-status'
+    "
+  >
+    <div *ngIf="ticket.trackingStatus == 'PENDING_USER_ACTION'">
+      PENDING USER ACTION
+    </div>
+    <div *ngIf="ticket.trackingStatus == 'PENDING_OTHERS_ACTION'">
+      PENDING OTHERS ACTION
+    </div>
+    <div
+      *ngIf="
+        ticket.trackingStatus != 'PENDING_USER_ACTION' &&
+        ticket.trackingStatus != 'PENDING_OTHERS_ACTION'
+      "
+    >
+      {{ ticket.trackingStatus }}
+    </div>
+  </div>
+  <div class="ticket-detail" style="font-size: 1.5rem">&gt;</div>
+</section>

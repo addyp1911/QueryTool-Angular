@@ -1,0 +1,33 @@
+
+<div class="home-top-nav">
+  <div class="top-nav-logo">
+    <img src="../../assets/Images/logo.png" />
+  </div>
+  <div class="top-side-icons">
+     <div class="notification-icon" (click)="openDialog()">
+      <img
+        *ngIf="!getUserIsRequester()"
+        joyrideStep="sixthStep"
+        text="Click here to write feedback based on the tool's user experience and any additional input.!"
+        class="noti-image"
+        width="22px"
+        src="https://tools.hashedin.com/base/feedback_icon.png"
+      />
+      <img
+        *ngIf="getUserIsRequester()"
+        joyrideStep="fourthStep"
+        text="Click here to write feedback based on the tool's user experience and any additional input.!"
+        class="noti-image"
+        width="22px"
+        src="https://tools.hashedin.com/base/feedback_icon.png"
+      />
+    </div>
+    <div class="profile-icon">
+      <img
+        class="profile-image"
+        width="36px"
+        src="../../assets/Images/profile.png"
+      />
+    </div>
+  </div>
+</div>

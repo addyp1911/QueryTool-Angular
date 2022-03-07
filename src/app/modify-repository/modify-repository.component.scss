@@ -1,0 +1,53 @@
+.c-ticket-section {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.main-section {
+  display: flex;
+}
+
+.side-nav-section {
+  width: 20%;
+}
+
+.modify-repo {
+  height: 85vh;
+  overflow-y: scroll;
+  width: 80%;
+  padding: 1rem;
+  background: #faf8f7;
+  .heading {
+    text-align: left;
+    font: normal normal bold 20px/27px primary-book;
+    letter-spacing: 0px;
+    color: #000000;
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+  }
+  .search-section {
+    margin: 1rem 1rem 1rem 0rem;
+    display: flex;
+    .s-input {
+      width: 100%;
+      .search-tab {
+        width: 100%;
+        border: 1px solid #d1d1d1;
+        border-radius: 5px;
+        padding: 0.5rem;
+        font: normal normal normal 14px/19px primary-book;
+        color: #767676;
+        opacity: 1;
+      }
+    }
+    .s-img {
+      background: #f47920 0% 0% no-repeat padding-box;
+      border-radius: 0px 5px 5px 0px;
+      padding: 0.4rem 0.2rem 0rem 0.2rem;
+    }
+  }
+  ::ng-deep .repo-detail-card {
+    margin: 1rem 1rem 0rem 0rem;
+    cursor: pointer;
+  }
+}

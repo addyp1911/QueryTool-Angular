@@ -1,0 +1,185 @@
+<div class="query-details-section">
+  <div class="query-details-container">
+    <div class="qury-details-top-nav">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <div class="content-section">
+        <div class="center-content">
+          <p class="q-heading">FAQ</p>
+          <div class="query-form">
+            <div class="first-form">
+              <label for="title ">Title </label><br />
+              <input
+                type="title"
+                id="title"
+                name="Title "
+                value="{{ myFAQDetails.query }}"
+                readonly="readonly"
+              /><br />
+            </div>
+            <div class="second-form" style="margin-top: 1rem">
+              <label for="Description">Description </label><br />
+              <textarea
+                type="description"
+                id="description"
+                name="description"
+                value="{{ myFAQDetails.solution }}"
+                readonly="readonly"
+                rows="5"
+              ></textarea
+              ><br />
+            </div>
+            <div class="third-form" style="margin-top: 1rem">
+              <label for="VideoUrl">Video Url</label><br />
+              <input
+                type="videourl "
+                id="videourl"
+                name="videourl "
+                value="{{ myFAQDetails.videoUrl }}"
+                readonly="readonly"
+              /><br />
+            </div>
+            <div class="fourth-form" style="margin-top: 1rem">
+              <label for="DocumentUrl">Document Url</label><br />
+              <input
+                type="DocumentUrl "
+                id="DocumentUrl"
+                name="DocumentUrl "
+                value="{{ myFAQDetails.docUrl }}"
+                readonly="readonly"
+              /><br />
+            </div>
+            <div class="fifth-form" style="margin-top: 1rem">
+              <div class="likes" (click)="Like(myFAQDetails)">
+                <img
+                  class="like-image"
+                  *ngIf="myFAQDetails?.isLiked == false"
+                  src="../../assets/Images/like.svg "
+                />
+                <img
+                  class="like-image"
+                  *ngIf="myFAQDetails?.isLiked == true"
+                  src="../../assets/Images/liked.svg "
+                />
+                <span>{{ myFAQDetails.likes }} people found it helpful</span>
+              </div>
+              <div class="comments">
+                <img
+                  height="17px"
+                  src="../../assets/Images/comments.png"
+                  alt=""
+                />
+                <span>{{ commentCount }} Comments</span>
+              </div>
+              <!-- <div class="comments">
+                <img src="../../assets/Images/comments.png"><span>24 Comments</span>
+              </div> -->
+            </div>
+            <form #formcontrol="ngForm" (submit)="comment()">
+              <div class="sixth-field" style="margin-top: 1rem">
+                <div class="s-f1">
+                  <img height="40px" src="../../assets/Images/profile.png" />
+                  <div class="add-comments">
+                    <span class="f-heading"> {{ userdetails.username }}</span
+                    ><br />
+                    <div class="comment-container">
+                      <input
+                        type="c-url"
+                        id="c-url"
+                        name="c-url"
+                        class="form-control"
+                        required
+                        [(ngModel)]="newComment"
+                        placeholder="Add your comments"
+                      />
+                      <button
+                        class="comment-image"
+                        [disabled]="!formcontrol.form.valid"
+                        type="submit"
+                      >
+                        <img src="../../assets/Images/streamlineicon.svg " />
+                      </button>
+                    </div>
+                    <br />
+                    <hr *ngIf="commentsfetched.length" class="horizontal" />
+                  </div>
+                </div>
+
+                <div
+                  class="s-f2"
+                  style="margin-top: 1rem"
+                  *ngFor="let comment of commentsfetched.slice(0, 3)"
+                >
+                  <img height="40px" src="../../assets/Images/profile.png" />
+                  <div class="added-comments">
+                    <div style="display: flex">
+                      <span class="f-heading"> {{ comment.sender.name }}</span>
+                      <div class="days-para">{{ calculateDiff(comment) }}</div>
+                      <br />
+                    </div>
+                    <div class="c-para">
+                      {{ comment.comment }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="side-content">
+          <section class="update-details">
+            <div class="q-heading">Updated Details</div>
+            <div class="repo-details">
+              <p class="label">Created Date</p>
+              <p class="label-details">
+                {{ myFAQDetails.createdAt | date: "dd-MM-YYYY" }}
+              </p>
+            </div>
+            <!-- <div class="repo-details">
+              <p class="label">Created By</p>
+              <p class="label-details">{{ userdetails.username }}</p>
+            </div> -->
+            <div class="repo-details">
+              <p class="label">Last Updated by</p>
+              <p class="label-details">HR Team</p>
+            </div>
+            <div class="repo-details">
+              <p class="label">Last Updated On</p>
+              <p class="label-details">
+                {{ myFAQDetails.updatedAt | date: "dd-MM-YYYY" }}
+              </p>
+            </div>
+            <div class="repo-details">
+              <p class="label">FAQ id</p>
+              <p class="label-details">{{ myFAQDetails.id }}</p>
+            </div>
+          </section>
+          <section class="attachments">
+            <div class="q-heading">Attachments</div>
+            <div class="file-details" *ngIf="myFAQDetails.attachment">
+              <img
+                height="40px"
+                (click)="onNavigate()"
+                src="../../assets/Images/pdf.png"
+              />
+              <div class="document">
+                <p class="document-name">
+                  {{ myFAQDetails.attachment.fileName }}
+                </p>
+              </div>
+            </div>
+            <div class="file-details" *ngIf="!myFAQDetails.attachment">
+              <div class="document">
+                <p class="document-name">No attachments found</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

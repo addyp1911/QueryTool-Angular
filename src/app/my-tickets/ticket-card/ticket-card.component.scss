@@ -1,0 +1,35 @@
+.card-info {
+  padding: 1.9rem 1.5rem 1.9rem 1.5rem;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  font: normal normal normal 14px/19px primary-book;
+  display: flex;
+  justify-content: flex-start;
+  .ticket-id {
+    width: 20%;
+  }
+  .ticket-description {
+    width: 51%;
+    display: inline-block;
+    height: 1rem;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    padding-right: 2rem;
+  }
+  .ticket-status {
+    // text-transform: capitalize !important;
+    width: 25%;
+  }
+  .ticket-deatail {
+    width: 2.5%;
+    font-size: 1.5rem;
+  }
+}
+
+.pending-status {
+  color: #f6a609;
+}
+
+.resolved-status {
+  color: #2ac769;
+}

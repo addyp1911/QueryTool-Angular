@@ -1,0 +1,36 @@
+<div class="c-ticket-section">
+  <div class="c-ticket-container">
+    <div class="top-nav-section">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <section class="modify-repo">
+        <div class="heading">Modify FAQs</div>
+        <div class="search-section">
+          <div class="s-input">
+            <input
+              class="search-tab"
+              type="text"
+              placeholder="Search"
+              [(ngModel)]="searchTerm"
+              (input)="search(searchTerm!)"
+            />
+          </div>
+          <div class="s-img">
+            <img class="s-icon" src="../../assets/Images/search.png" />
+          </div>
+        </div>
+        <div *ngFor="let item of myRepos">
+          <app-repo-card
+            [routerLink]="['/modify-repo/' + item.id]"
+            class="repo-detail-card"
+            [repo]="item"
+          ></app-repo-card>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

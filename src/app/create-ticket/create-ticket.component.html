@@ -1,0 +1,222 @@
+<div class="c-ticket-section">
+  <div class="c-ticket-container">
+    <div class="top-nav-section">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <div class="create-ticket-form">
+        <div class="form-heading">
+          <p class="f-heading">Ticket Details</p>
+          <div class="form-section formGroup">
+            <form (ngSubmit)="onSubmit()" [formGroup]="createNewTicketForm">
+              <div class="first-form">
+                <div class="f-field">
+                  <label for="ticket">Ticket ID</label><br />
+                  <input
+                    type="text"
+                    id="ticket"
+                    name="ticket"
+                    readonly="readonly"
+                  /><br />
+                </div>
+                <div class="first-field">
+                  <label for="createdDate">Created Date</label><br />
+                  <input
+                    type="text"
+                    id="createdDate"
+                    name="createdDate"
+                    formControlName="createdDate"
+                    readonly="readonly"
+                    ngModel="{{ newDate }}"
+                  /><br />
+                </div>
+                <div class="second-field">
+                  <label for="targetDate">Target Date</label><br />
+                  <input
+                    type="text"
+                    id="targetDate"
+                    name="targetDate"
+                    formControlName="targetDate"
+                    readonly="readonly"
+                    ngModel="{{ newtargetDate }}"
+                  /><br />
+                </div>
+                <div class="third-field">
+                  <label for="status">Status</label><br />
+                  <input
+                    type="text"
+                    id="status"
+                    name="status"
+                    formControlName="trackingStatus"
+                    readonly="readonly"
+                    ngModel="{{ 'CREATED' }}"
+                  /><br />
+                </div>
+              </div>
+              <div class="second-form" style="margin-top: 1rem">
+                <div class="s-first-field">
+                  <label for="Department">Department</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="department"
+                    formControlName="department"
+                    id="Department"
+                    [(ngModel)]="selectedDepartment"
+                    (change)="selectfunc()"
+                  >
+                    <option value="All">Select Department</option>
+                    <option
+                      *ngFor="let dept of allDepartments"
+                      [value]="dept.name"
+                    >
+                      {{ dept.name }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div class="s-second-field" style="margin-left: 1.5rem">
+                  <label for="Category">Category</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="category"
+                    formControlName="category"
+                    id="Category"
+                    [(ngModel)]="selectedCategory"
+                    (change)="selectfunc()"
+                  >
+                    <option value="All">Select Category</option>
+                    <option
+                      *ngFor="let category of allCategories"
+                      (change)="selectfunc()"
+                      [value]="category"
+                    >
+                      {{ category }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div class="s-third-field" style="margin-left: 1.5rem">
+                  <label for="Sub-Category ">Sub-Category</label><br />
+                  <select
+                    class="btn btn-secondary dropdown-toggle"
+                    name="subCategory"
+                    formControlName="subCategory"
+                    id="Sub-Category"
+                    [(ngModel)]="selectedSubCategory"
+                    (change)="selectfunc()"
+                  >
+                    <option value="All">Select Sub-Category</option>
+                    <option
+                      *ngFor="let subcategory of allSubCategories"
+                      [value]="subcategory"
+                    >
+                      {{ subcategory }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+                <div class="s-fourth-field" style="margin-left: 1rem">
+                  <label for="Priority ">Priority</label><br />
+                  <select
+                    formControlName="priority"
+                    class="btn btn-secondary dropdown-toggle"
+                    name="priority"
+                    id="Priority"
+                    [(ngModel)]="selectedPriority"
+                    (change)="selecttargetDate(selectedPriority)"
+                  >
+                    <option value="All">Select Priority</option>
+                    <option
+                      *ngFor="let number of ['P1', 'P2', 'P3', 'P4', 'P5']"
+                      [value]="number"
+                    >
+                      {{ number }}
+                    </option>
+                  </select>
+                  <br /><br />
+                </div>
+              </div>
+              <div class="third-form">
+                <label for="title">Title<span style="color: red">*</span></label
+                ><br />
+                <input
+                  type="title"
+                  id="title"
+                  name="query"
+                  formControlName="query"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="routeToQueryById($event)"
+                >
+                  <mat-option
+                    *ngFor="let street of filteredFAQs | async"
+                    [value]="street.query"
+                    [id]="street.id"
+                  >
+                    {{ street?.query }}
+                  </mat-option> </mat-autocomplete
+                ><br />
+              </div>
+              <div class="fourth-form">
+                <label for="Description"
+                  >Description<span style="color: red">*</span> (Max 500
+                  Characters)</label
+                ><br />
+                <textarea
+                  type="description"
+                  id="description"
+                  formControlName="description"
+                  name="description"
+                  ngModel
+                ></textarea>
+              </div>
+              <div class="btn-forms">
+                <div class="file-uplaod">
+                  <button
+                    class="btn-upload"
+                    type="button"
+                    (click)="fileInput.click()"
+                  >
+                    <img src="../../assets/Images/uploadsvg.svg" /><span
+                      style="margin-left: 0.5rem"
+                      >Upload File</span
+                    >
+                  </button>
+                  <input
+                    #fileInput
+                    type="file"
+                    (change)="onFileChanged($event)"
+                    style="display: none"
+                  />
+                  <a
+                    target="_blank"
+                    class="attachment-details"
+                    *ngIf="selectedFile"
+                  >
+                    {{ selectedFile.name }}
+                  </a>
+                </div>
+                <div class="btns">
+                  <button type="button" (click)="clear()" class="cancel">
+                    Cancel
+                  </button>
+                  <button
+                    class="submit"
+                    [disabled]="!createNewTicketForm.valid"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

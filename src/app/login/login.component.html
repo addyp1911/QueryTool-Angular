@@ -1,0 +1,44 @@
+<div class="login-section">
+    <div class="login-container">
+        <div class="login-content">
+            <div class="header-nav">
+                <img class="header-image" src=" ../../assets/Images/logo.png ">
+            </div>
+            <div class="login-data">
+                <div class="login-heading-section ">
+                    <p class="login-main-heading">Welcome to <span class="first">Ha</span> <span class="second">QuorA</span></p>
+                    <p class="login-para">Questions or Answers - of the hasher, for the hasher, <br>by the hasher</p>
+                </div>
+                <div class="login-form">
+                    <form role="form" [formGroup]="loginForm"  (ngSubmit)="loginUser()">
+                    <div id="login-form-first-field">
+                        <div class="form-input-first-field form-group">
+                            <input class="emailinput" type="email" name="email" formControlName="email" value="" placeholder="Email Address">
+                        </div>
+                        <div class="form-user-image">
+                            <img src=" ../../assets/Images/user.png ">
+                        </div>
+                        <br>
+                    </div>
+                    <div id="login-form-second-field">
+                        <div class="form-input-second-field form-group">
+                            <input class="passwordinput" type="password" formControlName="password" name="password" value="" placeholder="Password"></div>
+                        <div class="form-password-image">
+                            <img src=" ../../assets/Images/password.png ">
+                        </div>
+                    </div>
+                    <div class="login-btn-section ">
+                        <button class="login-btn "><a class="login-btn-link ">Login</a></button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--div for form-->
+        </div>
+
+        <div class="login-banner ">
+            <img class="banner-image " src="../../assets/Images/banner.svg ">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+[
+  {
+    "ticketNumber": "1234566",
+    "description": "Geting the dte reimbursment!!",
+    "department": "HR",
+    "category": "c1",
+    "subCategory": "s1",
+    "trackingStatus": "RESOLVED",
+    "assignee": "pappu"
+  },
+  {
+    "ticketNumber": "13223542",
+    "description": "How to apply for insurance",
+    "department": "Payroll",
+    "category": "c2",
+    "subCategory": "s2",
+    "trackingStatus": "RESOLVED",
+    "assignee": "ishan"
+  },
+  {
+    "ticketNumber": "2412412",
+    "description": "Smartphone reimbursment pollciy doc ",
+    "department": "IT",
+    "category": "c3",
+    "subCategory": "s3",
+    "trackingStatus": "RESOLVED",
+    "assignee": "pooja"
+  },
+  {
+    "ticketNumber": "2141241",
+    "description": "How to upload bills on excelity",
+    "department": "HR",
+    "category": "c2",
+    "subCategory": "s1",
+    "trackingStatus": "RESOLVED",
+    "assignee": "mrinal"
+  },
+  {
+    "ticketNumber": "32423423",
+    "description": "Hybrdid Allowance - HOw can you apply on excelity",
+    "department": "Payroll",
+    "category": "c2",
+    "subCategory": "s2",
+    "trackingStatus": "RESOLVED",
+    "assignee": "ishan"
+  },
+  {
+    "ticketNumber": "3242343",
+    "description": "Company Reimbursment-How to get ...",
+    "department": "IT",
+    "category": "c3",
+    "subCategory": "s3",
+    "trackingStatus": "PENDING",
+    "assignee": "pappu"
+  },
+  {
+    "ticketNumber": "412341234",
+    "description": "How to apply healthbeing allowance",
+    "department": "HR",
+    "category": "c1",
+    "subCategory": "s1",
+    "trackingStatus": "PENDING",
+    "assignee": "pappu"
+  },
+  {
+    "ticketNumber": "234242423",
+    "description": "How to apply for vintage gifts!!",
+    "department": "Payroll",
+    "category": "c2",
+    "subCategory": "s2",
+    "trackingStatus": "PENDING",
+    "assignee": "pappu"
+  }
+]

@@ -1,0 +1,48 @@
+<div style="width:500px;height:330.8px;">
+<h2 mat-dialog-title style="   letter-spacing: 0px;
+color: #000000;
+text-transform: capitalize;
+opacity: 1;
+font-family: primary-book;
+font-weight: medium;
+font-size: 24px;
+line-height: 33px;">Feedback for HAQuora</h2>
+<hr>
+<br>
+ <mat-dialog-content class="mat-typography">
+  <h3 style="text-align: left;
+  letter-spacing: 0px;
+  color: #000000;
+  text-transform: capitalize;
+  opacity: 1;
+  font-weight: medium;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: primary-book;">Please give us a rating!</h3>
+    <ngx-material-rating [color]="ratings.color" [disabled]="ratings.disabled" [dense]="ratings.dense"
+    [readonly]="ratings.readonly" [(ngModel)]="ratings.value" [max]="ratings.max">
+    </ngx-material-rating>
+    <div class="feedback">
+        <mat-form-field class="feedback" appearance="fill">
+            <mat-label style="text-align: left;
+            letter-spacing: 0px;
+            color: #000000;
+            text-transform: capitalize;
+            opacity: 1;
+            font-weight: medium;
+            font-size: 16px;
+            line-height: 22px;
+            font-family: primary-book;">Feedback</mat-label>
+            <textarea  required="true" matInput [(ngModel)]="feedback"
+            ></textarea>
+        </mat-form-field>
+    </div>  
+</mat-dialog-content> 
+<br>
+<mat-dialog-actions align="end">
+<div style="display:flex" >
+<button class="submit-button" [disabled]="!feedback" (click)="submitFeedback()" mat-dialog-close>Submit</button>
+<button class="submit-button"  mat-button [mat-dialog-close]="true" cdkFocusInitial> Cancel</button>
+</div>  
+</mat-dialog-actions>
+</div>

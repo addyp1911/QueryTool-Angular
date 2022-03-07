@@ -1,0 +1,117 @@
+.c-ticket-section {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.main-section {
+  display: flex;
+}
+
+.side-nav-section {
+  width: 20%;
+}
+
+.tickets-assigned {
+  height: 85vh;
+  overflow-y: scroll;
+  width: 80%;
+  padding: 1rem;
+  background: #faf8f7;
+  .heading {
+    font: normal normal bold 20px/27px primary-book;
+    color: #000000;
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+  }
+  .add-item-form {
+    display: flex;
+    flex-direction: column;
+    .row {
+      // width: 50%;
+      display: flex;
+      gap: 2rem;
+      ::ng-deep input,
+      select,
+      option,
+      textarea {
+        background: #faf8f7 0% 0% no-repeat padding-box;
+        border: 1px solid #d1d1d1;
+        border-radius: 5px;
+        opacity: 1;
+        padding: 0.5rem;
+        width: 100%;
+        margin-top: 6px;
+        width: 100%;
+      }
+      input {
+        height: 26px;
+      }
+      option,
+      select {
+        width: 103%;
+        height: 44px;
+      }
+      div {
+        margin-bottom: 24px;
+        width: 46%;
+        display: flex;
+        flex-direction: column;
+      }
+      .title-column {
+        width: 94.7%;
+      }
+      .description-column {
+        @extend .title-column;
+        width: 92%;
+        height: 83px;
+      }
+      .save-button {
+        border-radius: 5px;
+        width: 10%;
+        font-size: 14px;
+        line-height: 25px;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        background: #f47920 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+      }
+    }
+    .row-7 {
+      justify-content: flex-end;
+      margin-right: 3rem;
+    }
+    .attachment-column {
+      display: flex !important;
+      flex-direction: row !important;
+      .attachment-button {
+        .btn-upload {
+          border: 1px solid #d1d1d1;
+          border-radius: 5px;
+          font-size: 14px;
+          font-family: primary-book;
+          color: #1f2b39;
+          margin-top: 6px;
+          padding: 0.25rem 0rem 0.25rem 0rem;
+          width: 100%;
+          border: none;
+          border-radius: 5px;
+          opacity: 1;
+        }
+      }
+      .attachment-details {
+        margin: 2.2rem 0rem 0rem 1rem;
+        font-size: 14px;
+        color: inherit;
+        text-decoration: none;
+      }
+      .attachment-details:hover {
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.required {
+  color: red;
+}

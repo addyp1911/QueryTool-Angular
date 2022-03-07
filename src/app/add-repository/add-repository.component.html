@@ -1,0 +1,191 @@
+<div class="c-ticket-section">
+  <div class="c-ticket-container">
+    <div class="top-nav-section">
+      <app-top-nav></app-top-nav>
+    </div>
+    <div class="main-section">
+      <div class="side-nav-section">
+        <app-side-nav></app-side-nav>
+      </div>
+      <section class="tickets-assigned">
+        <div *ngIf="!id" class="heading">Add FAQ</div>
+        <div *ngIf="id" class="heading">Modify FAQ</div>
+        <form
+          [formGroup]="addNewRepoForm"
+          (ngSubmit)="submitForm()"
+          class="add-item-form"
+        >
+          <div class="row">
+            <div class="repo-id-column">
+              <label for="label">FAQ Id</label>
+              <input
+                disabled
+                placeholder=""
+                type="text"
+                class="repo-id"
+                style="background-color: #ebebeb"
+                value="{{ faqId }}"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="title-column">
+              <label for="label">Title<span class="required">*</span></label>
+              <input
+                formControlName="query"
+                placeholder="Enter the Title"
+                type="text"
+                class="title"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="description-column">
+              <label for="label"
+                >Description<span class="required">*</span></label
+              >
+              <textarea
+                formControlName="solution"
+                placeholder="Enter the Description"
+                name="description"
+                id="description"
+                class="description"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="video-url-column">
+              <label for="label">Video Url</label>
+              <input
+                formControlName="videoUrl"
+                placeholder="Enter the Video Url"
+                type="text"
+                class="video-url"
+              />
+            </div>
+            <div class="attachment-column">
+              <div class="attachment-button">
+                <label for="">Attachment</label>
+                <button
+                  class="btn-upload"
+                  type="button"
+                  (click)="fileInput.click()"
+                >
+                  <img
+                    height="60%"
+                    src="../../assets/Images/uploadsvg.svg"
+                  /><span style="margin-left: 0.5rem">Upload File</span>
+                </button>
+                <input
+                  (change)="onFileChange($event)"
+                  #fileInput
+                  type="file"
+                  style="display: none"
+                />
+              </div>
+              <a
+                href="{{ fileUrl }}"
+                target="_blank"
+                class="attachment-details"
+              >
+                {{ fileName }}
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="document-url-column">
+              <label for="label">Document Url</label>
+              <input
+                formControlName="docUrl"
+                placeholder="Enter the Document Url"
+                type="text"
+                class="document-url"
+              />
+            </div>
+            <div class="department-column">
+              <label for="label"
+                >Department<span class="required">*</span></label
+              >
+              <select
+                formControlName="department"
+                class="department"
+                [(ngModel)]="selectedDepartment"
+                (change)="selectfunc()"
+                readonly
+              >
+                <option [value]="selectedDepartment">
+                  {{ selectedDepartment }}
+                </option>
+                <!-- <option value="All" selected disabled>Select Department</option>
+                <option *ngFor="let dept of allDepartments" [value]="dept.name">
+                  {{ dept.name }}
+                </option> -->
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="category-column">
+              <label for="label">Category<span class="required">*</span></label>
+              <select
+                formControlName="category"
+                class="category"
+                [(ngModel)]="selectedCategory"
+                (change)="selectfunc()"
+              >
+                <option value="All">Select Category</option>
+                <option
+                  *ngFor="let category of allCategories"
+                  [value]="category"
+                  [selected]="category === selectedCategory"
+                >
+                  {{ category }}
+                </option>
+              </select>
+            </div>
+            <div class="sub-category-column">
+              <label for="label"
+                >Sub-Category <span class="required">*</span></label
+              >
+              <select
+                formControlName="subCategory"
+                class="sub-category"
+                [(ngModel)]="selectedSubCategory"
+                (change)="selectfunc()"
+              >
+                <option value="All">Select Sub-Category</option>
+                <option
+                  *ngFor="let subcategory of allSubCategories"
+                  [selected]="subcategory === selectedSubCategory"
+                  [value]="subcategory"
+                >
+                  {{ subcategory }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row row-7">
+            <app-loader
+              style="margin-right: 2rem"
+              *ngIf="loader"
+              [size]="40"
+            ></app-loader>
+            <button
+              *ngIf="!loader && faqId"
+              type="button"
+              style="background-color: red"
+              class="save-button"
+              (click)="deleteFaq(faqId)"
+            >
+              Delete
+            </button>
+            <button *ngIf="!loader" type="submit" class="save-button">
+              Save
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
